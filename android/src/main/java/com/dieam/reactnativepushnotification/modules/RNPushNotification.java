@@ -150,8 +150,11 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     public void presentLocalNotification(ReadableMap details) {
         Bundle bundle = Arguments.toBundle(details);
         // If notification ID is not provided by the user, generate one at random
-        if (bundle.getString("id") == null) {
+        double id = bundle.getDouble("id");
+        if (id == 0) {
             bundle.putString("id", String.valueOf(mRandomNumberGenerator.nextInt()));
+        } else {
+            bundle.putString("id", String.valueOf((int) id));
         }
         mRNPushNotificationHelper.sendToNotificationCentre(bundle);
     }
@@ -160,8 +163,11 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
     public void scheduleLocalNotification(ReadableMap details) {
         Bundle bundle = Arguments.toBundle(details);
         // If notification ID is not provided by the user, generate one at random
-        if (bundle.getString("id") == null) {
+        double id = bundle.getDouble("id");
+        if (id == 0) {
             bundle.putString("id", String.valueOf(mRandomNumberGenerator.nextInt()));
+        } else {
+            bundle.putString("id", String.valueOf((int) id));
         }
         mRNPushNotificationHelper.sendNotificationScheduled(bundle);
     }
